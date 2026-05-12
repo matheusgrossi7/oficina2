@@ -88,4 +88,4 @@ As atividades do projeto foram organizadas em duas fases principais, subdividida
 * **Semana 1 (Junho):** Implementação das camadas de persistência e integração com o Firebase (Authentication e Firestore).
 * **Semana 2 (Junho):** Desenvolvimento da lógica de negócios focada na gestão de turmas e no controle de frequência.
 * **Semana 3 (Junho):** Desenvolvimento dos módulos para geração de PDF (termos de adesão e certificados) e implementação dos testes automatizados de integração.
-* **Semana 4 (Junho):** *Sprint Review 2*. Entrega final do software completo e integrado, vídeo de demonstração abrangendo o fluxo ponta a ponta e encerramento oficial da disciplina.
+* **Semana 4 (Junho):** *Sprint Review 2*. Entrega final do software completo e integrado.
