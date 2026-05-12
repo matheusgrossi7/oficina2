@@ -68,20 +68,24 @@ A execução da implementação é dividida da seguinte forma:
 
 ## 6. Cronograma do Projeto
 
-As atividades do projeto foram organizadas em duas fases principais: **Planejamento** e **Implementação**.
+As atividades do projeto foram organizadas em duas fases principais, subdivididas por semanas de trabalho contínuo:
 
-### Fase 1: Planejamento (Final de Março - Abril)
-* **Dia 30 de Março:** Realização de entrevista presencial para elicitação e levantamento inicial de requisitos.
-* **Semana 1 e 2 (Abril):** Análise de requisitos, especificação formal de funcionalidades, elaboração da arquitetura de alto nível do sistema e modelagem de dados inicial.
-* **Meados de Abril:** Reunião de validação de escopo com o professor. Configuração final do ambiente de desenvolvimento, criação dos repositórios e submissão dos artefatos de planejamento.
+### Fase 1: Planejamento (Março - Abril)
+* **Semana 4 (Março):** Realização de entrevista presencial com os *stakeholders* (dia 30/03) para elicitação e levantamento inicial de requisitos.
+* **Semana 1 (Abril):** Análise de requisitos e especificação formal das funcionalidades.
+* **Semana 2 (Abril):** Elaboração da arquitetura de alto nível do sistema e modelagem de dados inicial.
+* **Semana 3 (Abril):** Reunião de validação de escopo com o professor. Criação dos repositórios, configuração final do ambiente de desenvolvimento e submissão dos artefatos de planejamento.
 
 ### Fase 2: Implementação (Abril - Junho)
 
 **Sprint 1: Desenvolvimento da Interface (Front-end)**
-* **Segunda quinzena de Abril a meados de Maio:** Início do desenvolvimento focado exclusivamente no *Front-end*. Estruturação em HTML e CSS, criação das interfaces de usuário (login, cadastro, dashboards) e implementação das primeiras classes de controle em JavaScript sob o paradigma de Orientação a Objetos.
-* **Dia 15 de Maio:** Encerramento da Sprint 1 (*Sprint Review 1*). Entrega do vídeo de apresentação (5 min), execução dos testes de interface e avaliação inicial do professor.
-* **Restante de Maio:** Semana de revisão técnica para ajustes e correções de possíveis inconformidades no *Front-end*.
+* **Semana 4 (Abril):** Início do desenvolvimento focado exclusivamente no *Front-end*. Estruturação base em HTML e CSS.
+* **Semana 1 (Maio):** Criação das interfaces de usuário principais (telas de login, formulários de cadastro e dashboards).
+* **Semana 2 (Maio):** Implementação das primeiras classes de controle em JavaScript sob o paradigma de Orientação a Objetos. Encerramento da Sprint 1 no dia **15 de Maio** (*Sprint Review 1*), com entrega do vídeo de apresentação (5 min), testes de interface e avaliação inicial do professor.
+* **Semana 3 e 4 (Maio):** Semanas de revisão técnica dedicadas a ajustes de usabilidade e correções de *bugs* visuais apontados na avaliação.
 
 **Sprint 2: Lógica de Negócios e Integração (Back-end)**
-* **Junho (Semanas 1 a 3):** Implementação das camadas de persistência e integração com Firebase (Authentication e Firestore). Desenvolvimento da lógica de negócios, controle de frequência e módulos de geração de PDF. Implementação dos testes automatizados de integração.
-* **Final de Junho:** *Sprint Review 2*. Entrega final do software completo e integrado, vídeo de demonstração ponta a ponta e encerramento oficial do projeto.
+* **Semana 1 (Junho):** Implementação das camadas de persistência e integração com o Firebase (Authentication e Firestore).
+* **Semana 2 (Junho):** Desenvolvimento da lógica de negócios focada na gestão de turmas e no controle de frequência.
+* **Semana 3 (Junho):** Desenvolvimento dos módulos para geração de PDF (termos de adesão e certificados) e implementação dos testes automatizados de integração.
+* **Semana 4 (Junho):** *Sprint Review 2*. Entrega final do software completo e integrado, vídeo de demonstração abrangendo o fluxo ponta a ponta e encerramento oficial da disciplina.
