@@ -71,7 +71,7 @@ A execução da implementação é dividida da seguinte forma:
 As atividades do projeto foram organizadas em duas fases principais, subdivididas por semanas de trabalho contínuo:
 
 ### Fase 1: Planejamento (Março - Abril)
-* **Semana 4 (Março):** Realização de entrevista presencial com os *stakeholders* (dia 30/03) para elicitação e levantamento inicial de requisitos.
+* **Semana 4 (Março):** Realização de entrevista presencial (dia 30/03) para elicitação e levantamento inicial de requisitos.
 * **Semana 1 (Abril):** Análise de requisitos e especificação formal das funcionalidades.
 * **Semana 2 (Abril):** Elaboração da arquitetura de alto nível do sistema e modelagem de dados inicial.
 * **Semana 3 (Abril):** Reunião de validação de escopo com o professor. Criação dos repositórios, configuração final do ambiente de desenvolvimento e submissão dos artefatos de planejamento.
