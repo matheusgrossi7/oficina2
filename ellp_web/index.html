@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELLP - Ensino Lúdico de Lógica e Programação</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1>ELLP Sistema</h1>
+            
+            <form id="login-form" class="active">
+                <h2>Iniciar Sessão</h2>
+                <div class="input-group">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" placeholder="Digite seu e-mail">
+                </div>
+                <div class="input-group">
+                    <label for="login-senha">Senha</label>
+                    <input type="password" id="login-senha" placeholder="Digite sua senha">
+                </div>
+                <button type="submit" class="btn-primary">Entrar</button>
+                <button type="button" id="btn-google" class="btn-google">Entrar com Google</button>
+                <p class="toggle-text">Não tem uma conta? <a href="#" id="show-register">Registre-se aqui</a></p>
+            </form>
+
+            <form id="register-form" class="hidden">
+                <h2>Registo de Utilizador</h2>
+                <div class="input-group">
+                    <label for="reg-nome">Nome Completo</label>
+                    <input type="text" id="reg-nome" placeholder="Digite seu nome completo">
+                </div>
+                <div class="input-group">
+                    <label for="reg-ra">Registro Acadêmico (RA)</label>
+                    <input type="text" id="reg-ra" placeholder="Digite seu RA">
+                </div>
+                <div class="input-group">
+                    <label for="reg-email">E-mail</label>
+                    <input type="email" id="reg-email" placeholder="Digite seu e-mail">
+                </div>
+                <div class="input-group">
+                    <label for="reg-senha">Senha</label>
+                    <input type="password" id="reg-senha" placeholder="Crie uma senha (mín. 6 caracteres)">
+                </div>
+                <button type="submit" class="btn-primary">Criar Conta</button>
+                <p class="toggle-text">Já possui uma conta? <a href="#" id="show-login">Faça login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/models/Usuario.js" defer></script>
+    <script src="js/controllers/AuthController.js" defer></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>
