@@ -9,7 +9,7 @@ Este repositório contém a documentação e o código do sistema de gestão par
 * Lucas Coller
 * Luís Fernando
 * Matheus Grossi
-* Vinicius Henrique
+* Vinicius Henrique De Oliveira Silva - RA: 2525925
 
 ### 1.2. Problema
 Atualmente, o Grupo ELLP enfrenta dificuldades devido ao uso de métodos manuais para o controle dos voluntários envolvidos e das oficinas ofertadas. Esse processo manual consome tempo significativo e pode resultar em filas para a conclusão das tarefas individuais, impactando negativamente a eficiência e a organização das atividades do projeto. Isso repercute diretamente na experiência dos voluntários e coordenador do projeto. Com a implementação do software web proposto, buscamos eliminar esses obstáculos, proporcionando uma solução eficiente e integrada para o gerenciamento dos voluntários, alunos e oficinas. Ao automatizar o processo de documentação e gestão, esperamos melhorar significativamente a eficiência e a organização do projeto. Isso resultará em uma experiência mais fluida e eficaz para todos os envolvidos, proporcionando um ambiente mais produtivo e colaborativo.
