@@ -1,73 +1,85 @@
 class AuthController {
     constructor() {
-        // Mapeamento dos elementos da interface
+        // Seções inteiras para ocultar/mostrar a tela completa
+        this.loginSection = document.getElementById('login-section');
+        this.registerSection = document.getElementById('register-section');
+        
+        // Formulários para interceptar o botão de Entrar/Criar
         this.loginForm = document.getElementById('login-form');
         this.registerForm = document.getElementById('register-form');
+        
+        // Links de alternância
         this.btnShowRegister = document.getElementById('show-register');
         this.btnShowLogin = document.getElementById('show-login');
-        this.btnGoogle = document.getElementById('btn-google'); // Mapeamento do botão Google
+        
+        // Botões do Google
+        this.btnGoogleLogin = document.getElementById('btn-google-login');
+        this.btnGoogleReg = document.getElementById('btn-google-reg');
 
-        // Verificação de segurança: se os elementos não existirem, alerta o programador
+        // Verificação de segurança
         if (!this.loginForm || !this.registerForm) {
-            console.error("Erro Crítico: Formulários não encontrados no DOM. Verifique o HTML.");
+            console.error("Erro Crítico: Formulários não encontrados no DOM. Verifique os IDs do HTML.");
             return;
         }
 
-        // Inicialização dos eventos
         this.inicializarEventos();
     }
 
     inicializarEventos() {
-        // Alternância de formulários
+        // Alternância de telas
         this.btnShowRegister.addEventListener('click', (e) => {
             e.preventDefault();
-            this.alternarFormularios(this.registerForm, this.loginForm);
+            this.alternarTelas(this.registerSection, this.loginSection);
         });
 
         this.btnShowLogin.addEventListener('click', (e) => {
             e.preventDefault();
-            this.alternarFormularios(this.loginForm, this.registerForm);
+            this.alternarTelas(this.loginSection, this.registerSection);
         });
 
-        // Interceção da submissão de registo
+        // Interceptação do form de cadastro
         this.registerForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Impede o recarregamento da página
+            e.preventDefault();
             this.processarRegisto();
         });
 
-        // Interceção da submissão de login
+        // Interceptação do form de login
         this.loginForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Impede o recarregamento da página
+            e.preventDefault();
             this.processarLogin();
         });
 
-        // Evento exclusivo para o botão do Google
-        if (this.btnGoogle) {
-            this.btnGoogle.addEventListener('click', (e) => {
+        // Eventos dos botões do Google
+        if (this.btnGoogleLogin) {
+            this.btnGoogleLogin.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log("Mock Sprint 1: Login com Google clicado.");
+                window.location.href = 'dashboard.html';
+            });
+        }
+        
+        if (this.btnGoogleReg) {
+            this.btnGoogleReg.addEventListener('click', (e) => {
+                e.preventDefault();
                 window.location.href = 'dashboard.html';
             });
         }
     }
 
-    alternarFormularios(formParaMostrar, formParaOcultar) {
-        formParaOcultar.classList.remove('active');
-        formParaOcultar.classList.add('hidden');
+    alternarTelas(telaParaMostrar, telaParaOcultar) {
+        telaParaOcultar.classList.remove('active');
+        telaParaOcultar.classList.add('hidden');
         
-        formParaMostrar.classList.remove('hidden');
-        formParaMostrar.classList.add('active');
+        telaParaMostrar.classList.remove('hidden');
+        telaParaMostrar.classList.add('active');
     }
 
     processarRegisto() {
-        console.log("Modo de visualização ativado. Redirecionando sem validação...");
-        this.registerForm.reset();
+        console.log("Simulação de registro: Redirecionando para o dashboard...");
         window.location.href = 'dashboard.html';
     }
 
     processarLogin() {
-        console.log("Modo de visualização ativado. Redirecionando sem validação de credenciais...");
-        // Redirecionamento direto e incondicional para a página do painel
+        console.log("Simulação de login: Redirecionando para o dashboard...");
         window.location.href = 'dashboard.html';
     }
 }

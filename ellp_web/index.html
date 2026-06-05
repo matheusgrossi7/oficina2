@@ -14,27 +14,27 @@
                 <input type="email" id="login-email" placeholder="E-mail" required>
                 <input type="password" id="login-senha" placeholder="Senha" required>
                 <button type="submit" class="btn-primary">Entrar</button>
-                <button type="button" id="btn-google" class="btn-google">Entrar com Google (OAuth)</button>
+                <button type="button" id="btn-google-login" class="btn-google">Entrar com Google (OAuth)</button>
             </form>
-            <p>Não possui conta? <a href="#" id="link-cadastro">Registre-se aqui</a></p>
+            <p>Não possui conta? <a href="#" id="show-register">Registre-se aqui</a></p>
         </div>
 
-        <div id="cadastro-section" class="form-section hidden">
+        <div id="register-section" class="form-section hidden">
             <h2>Registro de Usuário</h2>
-            <form id="cadastro-form">
-                <input type="text" id="cad-nome" placeholder="Nome Completo" required>
-                <input type="text" id="cad-ra" placeholder="Registro Acadêmico (RA)" required>
-                <input type="email" id="cad-email" placeholder="E-mail" required>
-                <input type="password" id="cad-senha" placeholder="Senha" required>
+            <form id="register-form">
+                <input type="text" id="reg-nome" placeholder="Nome Completo" required>
+                <input type="text" id="reg-ra" placeholder="Registro Acadêmico (RA)" required>
+                <input type="email" id="reg-email" placeholder="E-mail" required>
+                <input type="password" id="reg-senha" placeholder="Senha" required>
                 <button type="submit" class="btn-primary">Criar Conta</button>
-                <button type="button" class="btn-google">Cadastrar com Google</button>
+                <button type="button" id="btn-google-reg" class="btn-google">Cadastrar com Google</button>
             </form>
-            <p>Já possui conta? <a href="#" id="link-login">Faça Login</a></p>
+            <p>Já possui conta? <a href="#" id="show-login">Faça Login</a></p>
         </div>
     </div>
 
-    <script src="js/usuarios.js" defer></script>
-    <script src="js/AuthController.js" defer></script>
+    <script src="js/models/usuarios.js" defer></script>
+    <script src="js/controller/AuthController.js" defer></script>
     <script src="js/app.js" defer></script>
 </body>
 </html>
