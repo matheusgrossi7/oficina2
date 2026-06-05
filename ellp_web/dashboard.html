@@ -3,21 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Gestão - ELLP MNG</title>
+    <title>ELLP - Sistema de Gestão</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="auth-container" style="max-width: 600px; text-align: center;">
-        <div class="auth-box">
-            <h1>Painel de Gestão - ELLP</h1>
-            <h2>Bem-vindo, Administrador!</h2>
-            
-            <p style="margin-top: 20px; margin-bottom: 20px; line-height: 1.6;">
-                O senhor acessou o sistema com sucesso. Na Sprint 2, este painel exibirá as estatísticas em tempo real, a gestão de voluntários, o controle de turmas e a área de emissão de certificados integrada ao Firebase.
-            </p>
-            
-            <button class="btn-primary" onclick="window.location.href='index.html'" style="max-width: 200px; margin: 0 auto;">Encerrar Sessão</button>
+<body class="dashboard-body">
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>ELLP Admin</h2>
         </div>
-    </div>
+        <nav class="sidebar-nav">
+            <button class="nav-btn active" data-target="view-inicio">Início</button>
+            <button class="nav-btn" data-target="view-usuarios">Usuários e Papéis</button>
+            <button class="nav-btn" data-target="view-alunos">Gestão de Alunos</button>
+            <button class="nav-btn" data-target="view-oficinas">Oficinas e Turmas</button>
+            <button class="nav-btn" data-target="view-frequencia">Lista de Presença</button>
+            <button class="nav-btn" data-target="view-certificados">Certificados</button>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="btn-logout" class="btn-secondary" onclick="window.location.href='index.html'">Sair do Sistema</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <section id="view-inicio" class="module-section active">
+            <h1>Visão Geral do Sistema</h1>
+            <div class="card">
+                <h3>Bem-vindo, Administrador!</h3>
+                <p>Utilize o menu lateral ou os atalhos abaixo para acessar as funcionalidades do sistema ELLP.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Gestão de Usuários</h4>
+                    <p>Acesse a listagem de voluntários e atribua papéis.</p>
+                    <button class="btn-primary action-btn" data-target="view-usuarios">Acessar Módulo</button>
+                </div>
+                <div class="card">
+                    <h4>Gestão de Alunos</h4>
+                    <p>Controle os perfis dos alunos participantes das oficinas.</p>
+                    <button class="btn-primary action-btn" data-target="view-alunos">Acessar Módulo</button>
+                </div>
+                <div class="card">
+                    <h4>Oficinas e Turmas</h4>
+                    <p>Gerencie as oficinas oferecidas, turmas e matrículas.</p>
+                    <button class="btn-primary action-btn" data-target="view-oficinas">Acessar Módulo</button>
+                </div>
+                <div class="card">
+                    <h4>Frequência e Certificados</h4>
+                    <p>Controle de lista de presença e emissão de PDFs.</p>
+                    <button class="btn-primary action-btn" data-target="view-frequencia">Acessar Módulo</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-usuarios" class="module-section hidden">
+            <h1>Gestão de Usuários e Voluntários</h1>
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>RA</th>
+                            <th>E-mail</th>
+                            <th>Papel Atual</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>XXX</td>
+                            <td>2102001</td>
+                            <td>usuario1@ellp.com</td>
+                            <td><span class="badge badge-tutor">Tutor</span></td>
+                            <td><button class="btn-small">Alterar Papel</button></td>
+                        </tr>
+                        <tr>
+                            <td>Novo Usuário</td>
+                            <td>2102002</td>
+                            <td>novo@ellp.com</td>
+                            <td><span class="badge badge-none">Sem Papel</span></td>
+                            <td><button class="btn-small">Atribuir Papel</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="view-alunos" class="module-section hidden">
+            <h1>Gestão de Perfis de Alunos</h1>
+            <div class="card">
+                <h3>Cadastrar Novo Aluno</h3>
+                <form class="inline-form" onsubmit="event.preventDefault(); alert('Aluno salvo! (Demonstração visual)');">
+                    <input type="text" placeholder="Nome do Aluno" required>
+                    <input type="number" placeholder="Idade" required>
+                    <input type="text" placeholder="Escola de Origem" required>
+                    <button type="submit" class="btn-primary">Salvar Aluno</button>
+                </form>
+            </div>
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nome do Aluno</th>
+                            <th>Idade</th>
+                            <th>Escola</th>
+                            <th>Contato Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aluno Exemplo</td>
+                            <td>12</td>
+                            <td>Escola Municipal X</td>
+                            <td>(43) 99999-9999</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="view-oficinas" class="module-section hidden">
+            <h1>Oficinas e Turmas</h1>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Nova Oficina</h3>
+                    <form onsubmit="event.preventDefault(); alert('Oficina criada com sucesso!');">
+                        <input type="text" placeholder="Nome da Oficina" required>
+                        <input type="number" placeholder="Carga Horária Total" required>
+                        <button type="submit" class="btn-primary">Criar Oficina</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Turmas Ativas</h3>
+                    <ul>
+                        <li><strong>Oficina:</strong> Lógica de Programação com Blocos</li>
+                        <li><strong>Horário:</strong> Terça-feira, 14h00</li>
+                        <li><strong>Professor:</strong> XXX</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-frequencia" class="module-section hidden">
+            <h1>Controle de Frequência</h1>
+            <div class="card">
+                <h3>Registrar Presença - 15/05/2026</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Aluno</th>
+                            <th>Turma</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aluno Exemplo</td>
+                            <td>Lógica com Blocos</td>
+                            <td>
+                                <select>
+                                    <option value="presente">Presente</option>
+                                    <option value="ausente">Ausente</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn-primary" style="margin-top: 15px;" onclick="alert('Lista de presença atualizada!')">Salvar Lista de Presença</button>
+            </div>
+        </section>
+
+        <section id="view-certificados" class="module-section hidden">
+            <h1>Emissão de Certificados</h1>
+            <div class="card">
+                <p>Nesta área, o sistema calculará automaticamente os alunos com frequência igual ou superior a 75% para a emissão dos PDFs.</p>
+                <table class="data-table" style="margin-top: 15px;">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Frequência</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aluno Exemplo</td>
+                            <td>Aluno</td>
+                            <td>80%</td>
+                            <td><button class="btn-primary btn-small">Gerar PDF</button></td>
+                        </tr>
+                        <tr>
+                            <td>XXX</td>
+                            <td>Voluntário</td>
+                            <td>100%</td>
+                            <td><button class="btn-primary btn-small">Gerar PDF</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/controller/dashboard.js" defer></script>
 </body>
 </html>
