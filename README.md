@@ -81,7 +81,7 @@ As atividades do projeto foram organizadas em duas fases principais, subdividida
 **Sprint 1: Desenvolvimento da Interface (Front-end)**
 * **Semana 4 (Abril):** Início do desenvolvimento focado exclusivamente no *Front-end*. Estruturação base em HTML e CSS.
 * **Semana 1 (Maio):** Criação das interfaces de usuário principais (telas de login, formulários de cadastro e dashboards).
-* **Semana 2 (Maio):** Implementação das primeiras classes de controle em JavaScript sob o paradigma de Orientação a Objetos. Encerramento da Sprint 1 no dia **15 de Maio** (*Sprint Review 1*), com entrega do vídeo de apresentação (5 min), testes de interface e avaliação inicial do professor.
+* **Semana 2 (Maio):** Implementação das primeiras classes de controle em JavaScript sob o paradigma de Orientação a Objetos. 
 * **Semana 3 e 4 (Maio):** Semanas de revisão técnica dedicadas a ajustes de usabilidade e correções de *bugs* visuais apontados na avaliação.
 
 **Sprint 2: Lógica de Negócios e Integração (Back-end)**
