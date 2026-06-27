@@ -5,7 +5,7 @@ import { db } from '../app.js';
 class DashboardController {
     constructor() {
         this.auth = getAuth();
-        this.isAdmin = false; 
+        this.isAdmin = false;
         this.emailCoordenador = "coordenador@ellp.com";
 
         this.navButtons = document.querySelectorAll('.nav-btn');
@@ -15,13 +15,13 @@ class DashboardController {
         this.tabelaFrequencia = document.getElementById('tabela-frequencia');
         this.tabelaCertificados = document.getElementById('tabela-certificados');
         this.btnLogout = document.getElementById('btn-logout');
-        
+
         this.formAluno = document.getElementById('form-aluno');
         this.btnSalvarAluno = document.getElementById('btn-salvar-aluno');
         this.btnCancelarEdicao = document.getElementById('btn-cancelar-edicao');
         this.searchInput = document.getElementById('search-aluno');
         this.filterStatus = document.getElementById('filter-status');
-        
+
         this.formOficina = document.getElementById('form-oficina');
         this.listaOficinas = document.getElementById('lista-oficinas');
         this.selectAlunoOficina = document.getElementById('aluno-oficina');
@@ -31,7 +31,7 @@ class DashboardController {
 
         this.alunoEditandoId = null;
         this.oficinaEditandoId = null;
-        this.alunosCache = []; 
+        this.alunosCache = [];
         this.oficinasCache = [];
 
         this.init();
@@ -46,7 +46,7 @@ class DashboardController {
                 } else if (user.email === this.emailCoordenador) {
                     this.isAdmin = true;
                 }
-                
+
                 this.initEvents();
                 this.carregarDadosIniciais();
                 this.aplicarHierarquia();
@@ -69,7 +69,7 @@ class DashboardController {
             if (e.target.classList.contains('btn-editar-oficina') && this.isAdmin) this.prepararEdicaoOficina(e.target.getAttribute('data-id'));
             if (e.target.classList.contains('btn-gerar-pdf')) this.gerarPDF(e.target.getAttribute('data-nome'), e.target.getAttribute('data-oficina'));
         });
-        
+
         this.btnLogout?.addEventListener('click', async () => { await signOut(this.auth); window.location.href = 'index.html'; });
         this.formAluno?.addEventListener('submit', (e) => { e.preventDefault(); this.salvarAluno(); });
         this.btnCancelarEdicao?.addEventListener('click', (e) => { e.preventDefault(); this.cancelarEdicaoAluno(); });
@@ -102,7 +102,7 @@ class DashboardController {
         this.tabelaUsuarios.innerHTML = '';
         snap.forEach(d => {
             const u = d.data();
-            const acao = this.isAdmin 
+            const acao = this.isAdmin
                 ? `<td><select id="papel-${d.id}"><option value="Voluntário" ${u.papel === 'Voluntário' ? 'selected' : ''}>Voluntário</option><option value="Administrador" ${u.papel === 'Administrador' ? 'selected' : ''}>Administrador</option></select></td>
                    <td><button class="btn-primary btn-small btn-salvar-papel" data-id="${d.id}">Salvar</button></td>`
                 : `<td>${u.papel}</td><td>-</td>`;
@@ -152,10 +152,10 @@ class DashboardController {
         const termo = this.searchInput.value.toLowerCase();
         const status = this.filterStatus.value;
         this.alunosCache.filter(a => (a.nome.toLowerCase().includes(termo)) && (status === 'Todos' || a.status === status))
-        .forEach(a => {
-            const acao = this.isAdmin ? `<td><button class="btn-primary btn-small btn-editar-aluno" data-id="${a.id}">Editar</button></td>` : '<td>-</td>';
-            this.tabelaAlunos.innerHTML += `<tr><td>${a.nome}</td><td>${a.oficina}</td><td>${a.status}</td><td>${a.contato}</td>${acao}</tr>`;
-        });
+            .forEach(a => {
+                const acao = this.isAdmin ? `<td><button class="btn-primary btn-small btn-editar-aluno" data-id="${a.id}">Editar</button></td>` : '<td>-</td>';
+                this.tabelaAlunos.innerHTML += `<tr><td>${a.nome}</td><td>${a.oficina}</td><td>${a.status}</td><td>${a.contato}</td>${acao}</tr>`;
+            });
     }
 
     prepararEdicaoAluno(id) {
@@ -183,9 +183,9 @@ class DashboardController {
     // --- OFICINAS ---
     async salvarOficina() {
         if (!this.isAdmin) return;
-        
-        const dados = { 
-            nome: document.getElementById('oficina-nome').value, 
+
+        const dados = {
+            nome: document.getElementById('oficina-nome').value,
             cargaHoraria: parseInt(document.getElementById('oficina-carga').value)
         };
 
@@ -204,18 +204,19 @@ class DashboardController {
     }
 
     async carregarOficinas() {
+        // TODO: Usar model Oficina para instanciar objetos
         const snap = await getDocs(collection(db, "oficinas"));
         this.oficinasCache = [];
-        
+
         if (this.listaOficinas) this.listaOficinas.innerHTML = '';
         let htmlSelect = '<option value="">Selecione...</option>';
 
-        snap.forEach(d => { 
-            const o = d.data(); 
+        snap.forEach(d => {
+            const o = d.data();
             o.id = d.id;
             this.oficinasCache.push(o);
             htmlSelect += `<option value="${o.nome}">${o.nome}</option>`;
-            
+
             if (this.listaOficinas) {
                 const acao = this.isAdmin ? `<button class="btn-primary btn-small btn-editar-oficina" data-id="${d.id}" style="margin-left: 10px;">Editar</button>` : '';
                 this.listaOficinas.innerHTML += `<li>${o.nome} - Carga: ${o.cargaHoraria}h (${o.cargaHoraria} aulas) ${acao}</li>`;
@@ -232,7 +233,7 @@ class DashboardController {
         if (!o) return;
         document.getElementById('oficina-nome').value = o.nome;
         document.getElementById('oficina-carga').value = o.cargaHoraria;
-        
+
         this.oficinaEditandoId = id;
         const btn = this.formOficina.querySelector('button[type="submit"]');
         if (btn) btn.innerText = "Atualizar Oficina";
@@ -279,7 +280,7 @@ class DashboardController {
                 status: tr.querySelector('.status-freq').value
             }))
         });
-        
+
         alert("Lista salva com sucesso, senhor!");
         this.btnSalvarFrequencia.classList.add('hidden');
         this.tabelaFrequencia.innerHTML = '';
@@ -289,7 +290,7 @@ class DashboardController {
     async carregarCertificados() {
         const snap = await getDocs(collection(db, "frequencias"));
         const mapa = {};
-        
+
         const totalAulasPorOficina = {};
         this.oficinasCache.forEach(o => totalAulasPorOficina[o.nome] = o.cargaHoraria || 1);
 
@@ -300,12 +301,12 @@ class DashboardController {
                 if (c.status === 'Presente') mapa[k].pres++;
             });
         });
-        
+
         this.tabelaCertificados.innerHTML = '';
         for (const k in mapa) {
             const totalAulas = totalAulasPorOficina[mapa[k].oficina];
             const pct = (mapa[k].pres / totalAulas) * 100;
-            
+
             if (pct >= 75) {
                 this.tabelaCertificados.innerHTML += `<tr><td>${mapa[k].nome}</td><td>${mapa[k].oficina}</td><td>${pct.toFixed(0)}% (${mapa[k].pres}/${totalAulas})</td><td><button class="btn-primary btn-small btn-gerar-pdf" data-nome="${mapa[k].nome}" data-oficina="${mapa[k].oficina}">PDF</button></td></tr>`;
             }
@@ -320,7 +321,7 @@ class DashboardController {
         doc.setLineWidth(1.5);
         doc.setDrawColor(41, 128, 185); // Tom de azul profissional
         doc.rect(10, 10, 277, 190);
-        
+
         // Design: Borda Interior Fina
         doc.setLineWidth(0.5);
         doc.rect(12, 12, 273, 186);
