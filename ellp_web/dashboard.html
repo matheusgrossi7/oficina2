@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELLP - Sistema de Gestão</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="dashboard-body">
     
@@ -14,14 +15,14 @@
         </div>
         <nav class="sidebar-nav">
             <button class="nav-btn active" data-target="view-inicio">Início</button>
-            <button class="nav-btn" data-target="view-usuarios">Usuários e Papéis</button>
+            <button class="nav-btn btn-admin-only" data-target="view-usuarios">Usuários e Papéis</button>
             <button class="nav-btn" data-target="view-alunos">Gestão de Alunos</button>
             <button class="nav-btn" data-target="view-oficinas">Oficinas e Turmas</button>
             <button class="nav-btn" data-target="view-frequencia">Lista de Presença</button>
             <button class="nav-btn" data-target="view-certificados">Certificados</button>
         </nav>
         <div class="sidebar-footer">
-            <button id="btn-logout" class="btn-secondary" onclick="window.location.href='index.html'">Sair do Sistema</button>
+            <button id="btn-logout" class="btn-secondary">Sair do Sistema</button>
         </div>
     </aside>
 
@@ -30,13 +31,13 @@
         <section id="view-inicio" class="module-section active">
             <h1>Visão Geral do Sistema</h1>
             <div class="card">
-                <h3>Bem-vindo, Administrador!</h3>
-                <p>Utilize o menu lateral ou os atalhos abaixo para acessar as funcionalidades do sistema ELLP.</p>
+                <h3>Bem-vindo ao ELLP!</h3>
+                <p>Utilize o menu lateral ou os atalhos abaixo para acessar as funcionalidades do sistema.</p>
             </div>
             <div class="card-grid">
-                <div class="card">
+                <div class="card card-admin-only">
                     <h4>Gestão de Usuários</h4>
-                    <p>Acesse a listagem de voluntários e atribua papéis.</p>
+                    <p>Acesso exclusivo ao Coordenador para atribuir papéis.</p>
                     <button class="btn-primary action-btn" data-target="view-usuarios">Acessar Módulo</button>
                 </div>
                 <div class="card">
@@ -70,54 +71,59 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>XXX</td>
-                            <td>2102001</td>
-                            <td>usuario1@ellp.com</td>
-                            <td><span class="badge badge-tutor">Tutor</span></td>
-                            <td><button class="btn-small">Alterar Papel</button></td>
-                        </tr>
-                        <tr>
-                            <td>Novo Usuário</td>
-                            <td>2102002</td>
-                            <td>novo@ellp.com</td>
-                            <td><span class="badge badge-none">Sem Papel</span></td>
-                            <td><button class="btn-small">Atribuir Papel</button></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tabela-usuarios">
+                        </tbody>
                 </table>
             </div>
         </section>
 
         <section id="view-alunos" class="module-section hidden">
             <h1>Gestão de Perfis de Alunos</h1>
+            
             <div class="card">
-                <h3>Cadastrar Novo Aluno</h3>
-                <form class="inline-form" onsubmit="event.preventDefault(); alert('Aluno salvo! (Demonstração visual)');">
-                    <input type="text" placeholder="Nome do Aluno" required>
-                    <input type="number" placeholder="Idade" required>
-                    <input type="text" placeholder="Escola de Origem" required>
-                    <button type="submit" class="btn-primary">Salvar Aluno</button>
+                <h3 id="titulo-form-aluno">Cadastrar Novo Aluno</h3>
+                <form id="form-aluno" class="inline-form" style="flex-wrap: wrap;">
+                    <input type="text" id="aluno-nome" placeholder="Nome do Aluno" required style="flex: 1 1 200px;">
+                    <input type="number" id="aluno-idade" placeholder="Idade" required style="flex: 1 1 80px;">
+                    <input type="text" id="aluno-escola" placeholder="Escola de Origem" required style="flex: 1 1 200px;">
+                    <input type="text" id="aluno-contato" placeholder="Contato do Responsável" required style="flex: 1 1 200px;">
+                    
+                    <select id="aluno-oficina" required style="flex: 1 1 200px;">
+                        <option value="">Vincular a uma Oficina...</option>
+                    </select>
+                    
+                    <select id="aluno-status" required style="flex: 1 1 150px;">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                    
+                    <button type="submit" id="btn-salvar-aluno" class="btn-primary">Salvar Aluno</button>
+                    <button type="button" id="btn-cancelar-edicao" class="btn-secondary hidden">Cancelar Edição</button>
                 </form>
             </div>
+
             <div class="card">
+                <h3>Lista de Alunos Matriculados</h3>
+                <div class="inline-form" style="margin-bottom: 15px;">
+                    <input type="text" id="search-aluno" placeholder="Pesquisar aluno por nome..." style="flex: 2;">
+                    <select id="filter-status" style="flex: 1;">
+                        <option value="Ativo">Mostrar Apenas Ativos</option>
+                        <option value="Todos">Mostrar Todos</option>
+                        <option value="Inativo">Mostrar Inativos</option>
+                    </select>
+                </div>
+
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Nome do Aluno</th>
-                            <th>Idade</th>
-                            <th>Escola</th>
-                            <th>Contato Responsável</th>
+                            <th>Nome</th>
+                            <th>Oficina Vinculada</th>
+                            <th>Status</th>
+                            <th>Contato</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Aluno Exemplo</td>
-                            <td>12</td>
-                            <td>Escola Municipal X</td>
-                            <td>(43) 99999-9999</td>
-                        </tr>
+                    <tbody id="tabela-alunos">
                     </tbody>
                 </table>
             </div>
@@ -128,18 +134,15 @@
             <div class="card-grid">
                 <div class="card">
                     <h3>Nova Oficina</h3>
-                    <form onsubmit="event.preventDefault(); alert('Oficina criada com sucesso!');">
-                        <input type="text" placeholder="Nome da Oficina" required>
-                        <input type="number" placeholder="Carga Horária Total" required>
+                    <form id="form-oficina">
+                        <input type="text" id="oficina-nome" placeholder="Nome da Oficina" required>
+                        <input type="number" id="oficina-carga" placeholder="Carga Horária Total" required>
                         <button type="submit" class="btn-primary">Criar Oficina</button>
                     </form>
                 </div>
                 <div class="card">
                     <h3>Turmas Ativas</h3>
-                    <ul>
-                        <li><strong>Oficina:</strong> Lógica de Programação com Blocos</li>
-                        <li><strong>Horário:</strong> Terça-feira, 14h00</li>
-                        <li><strong>Professor:</strong> XXX</li>
+                    <ul id="lista-oficinas">
                     </ul>
                 </div>
             </div>
@@ -148,58 +151,43 @@
         <section id="view-frequencia" class="module-section hidden">
             <h1>Controle de Frequência</h1>
             <div class="card">
-                <h3>Registrar Presença - 15/05/2026</h3>
-                <table class="data-table">
+                <h3>Registrar Presença</h3>
+                <form id="form-frequencia-filtro" class="inline-form">
+                    <input type="date" id="freq-data" required>
+                    <select id="freq-oficina" required>
+                        <option value="">Selecione a Oficina...</option>
+                    </select>
+                    <button type="submit" class="btn-primary">Carregar Turma</button>
+                </form>
+
+                <table class="data-table" style="margin-top: 15px;">
                     <thead>
                         <tr>
-                            <th>Aluno</th>
-                            <th>Turma</th>
-                            <th>Status</th>
+                            <th>Aluno (Apenas Ativos da Turma)</th>
+                            <th>Status de Presença</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Aluno Exemplo</td>
-                            <td>Lógica com Blocos</td>
-                            <td>
-                                <select>
-                                    <option value="presente">Presente</option>
-                                    <option value="ausente">Ausente</option>
-                                </select>
-                            </td>
-                        </tr>
+                    <tbody id="tabela-frequencia">
                     </tbody>
                 </table>
-                <button class="btn-primary" style="margin-top: 15px;" onclick="alert('Lista de presença atualizada!')">Salvar Lista de Presença</button>
+                <button id="btn-salvar-frequencia" class="btn-primary hidden" style="margin-top: 15px;">Salvar Lista de Presença no Banco</button>
             </div>
         </section>
 
         <section id="view-certificados" class="module-section hidden">
             <h1>Emissão de Certificados</h1>
             <div class="card">
-                <p>Nesta área, o sistema calculará automaticamente os alunos com frequência igual ou superior a 75% para a emissão dos PDFs.</p>
+                <p>Nesta área, o sistema calcula automaticamente os alunos com frequência igual ou superior a 75% para a emissão dos PDFs.</p>
                 <table class="data-table" style="margin-top: 15px;">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Tipo</th>
+                            <th>Nome do Aluno</th>
+                            <th>Oficina</th>
                             <th>Frequência</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Aluno Exemplo</td>
-                            <td>Aluno</td>
-                            <td>80%</td>
-                            <td><button class="btn-primary btn-small">Gerar PDF</button></td>
-                        </tr>
-                        <tr>
-                            <td>XXX</td>
-                            <td>Voluntário</td>
-                            <td>100%</td>
-                            <td><button class="btn-primary btn-small">Gerar PDF</button></td>
-                        </tr>
+                    <tbody id="tabela-certificados">
                     </tbody>
                 </table>
             </div>
@@ -207,6 +195,7 @@
 
     </main>
 
-    <script src="js/controller/dashboard.js" defer></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/controller/dashboard.js"></script>
 </body>
 </html>
