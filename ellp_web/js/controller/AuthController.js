@@ -1,4 +1,6 @@
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { db } from '../app.js';
 import { Usuario } from '../models/usuarios.js';
 
 export class AuthController {
@@ -15,7 +17,6 @@ export class AuthController {
         this.btnGoogleLogin = document.getElementById('btn-google-login');
         this.btnGoogleReg = document.getElementById('btn-google-reg');
 
-        // Verificação de segurança: Só inicializa os eventos se estiver na página do index.html
         if (this.loginSection && this.registerSection) {
             this.inicializarEventos();
         }
@@ -42,19 +43,8 @@ export class AuthController {
             this.processarLogin();
         });
 
-        if (this.btnGoogleLogin) {
-            this.btnGoogleLogin.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.processarLoginGoogle();
-            });
-        }
-        
-        if (this.btnGoogleReg) {
-            this.btnGoogleReg.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.processarLoginGoogle();
-            });
-        }
+        if (this.btnGoogleLogin) this.btnGoogleLogin.addEventListener('click', (e) => { e.preventDefault(); this.processarLoginGoogle(); });
+        if (this.btnGoogleReg) this.btnGoogleReg.addEventListener('click', (e) => { e.preventDefault(); this.processarLoginGoogle(); });
     }
 
     alternarTelas(telaParaMostrar, telaParaOcultar) {
@@ -71,40 +61,50 @@ export class AuthController {
         const senha = document.getElementById('reg-senha').value;
 
         try {
-            await createUserWithEmailAndPassword(this.auth, email, senha);
-            const novoUsuario = new Usuario(nome, ra, email, senha);
+            const credencial = await createUserWithEmailAndPassword(this.auth, email, senha);
             
-            alert("Conta criada com sucesso no sistema, senhor!");
+            // Gravação obrigatória no Firestore para aparecer na Gestão de Usuários
+            await setDoc(doc(db, "usuarios", credencial.user.uid), {
+                nome: nome,
+                ra: ra,
+                email: email,
+                papel: "Voluntário"
+            });
+            
+            alert("Conta criada com sucesso, senhor!");
             window.location.href = 'dashboard.html';
         } catch (error) {
-            console.error("Erro detalhado no Firebase (Registro):", error);
-            if (error.code === 'auth/email-already-in-use') alert("Falha no Registro, senhor: Este e-mail já está em uso.");
-            else if (error.code === 'auth/weak-password') alert("Falha no Registro, senhor: A senha deve possuir ao menos 6 caracteres.");
-            else alert(`Falha ao registrar, senhor: ${error.message}`);
+            console.error("Erro no Registro:", error);
+            alert(`Falha ao registrar, senhor: ${error.message}`);
         }
     }
 
     async processarLogin() {
         const email = document.getElementById('login-email').value;
         const senha = document.getElementById('login-senha').value;
-
         try {
             await signInWithEmailAndPassword(this.auth, email, senha);
             window.location.href = 'dashboard.html';
         } catch (error) {
-            console.error("Erro detalhado no Firebase (Login):", error);
-            if (error.code === 'auth/invalid-credential') alert("Falha ao autenticar, senhor. E-mail não cadastrado ou senha incorreta.");
-            else alert(`Falha ao autenticar, senhor: ${error.message}`);
+            console.error("Erro no Login:", error);
+            alert("Falha ao autenticar, senhor.");
         }
     }
 
     async processarLoginGoogle() {
         try {
-            await signInWithPopup(this.auth, this.googleProvider);
+            const credencial = await signInWithPopup(this.auth, this.googleProvider);
+            // Gravação automática para logins Google
+            await setDoc(doc(db, "usuarios", credencial.user.uid), {
+                nome: credencial.user.displayName || "Usuário Google",
+                ra: "N/A",
+                email: credencial.user.email,
+                papel: "Voluntário"
+            }, { merge: true });
             window.location.href = 'dashboard.html';
         } catch (error) {
-            console.error("Erro detalhado no Firebase (Google):", error);
-            alert(`Falha na autenticação com Google, senhor: ${error.message}`);
+            console.error("Erro no Google:", error);
+            alert(`Falha na autenticação: ${error.message}`);
         }
     }
 }
